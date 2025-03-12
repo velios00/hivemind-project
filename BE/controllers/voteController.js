@@ -45,6 +45,10 @@ export class VoteController {
             });
           });
         }
+
+    static async getVotes(ideaId, type){
+        //da completare
+    }
         
 
 }
