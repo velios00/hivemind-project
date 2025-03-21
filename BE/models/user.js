@@ -20,10 +20,10 @@ export function createModel(database) {
                 let hash = createHash("sha256");    
                 this.setDataValue('password', hash.update(value).digest("hex"));
               },
-              avatar: {
-                type: DataTypes.STRING,
-                allowNull: true,
-              },
-        }
+            },
+        avatar: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            },
     });
 }
