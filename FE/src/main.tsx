@@ -13,7 +13,7 @@ import Signin from "./pages/Signin.tsx";
 import NotFoundPage from "./pages/NotFoundPage.tsx";
 import Signup from "./pages/Signup.tsx";
 
-const router = createBrowserRouter([
+const router2 = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
@@ -26,6 +26,27 @@ const router = createBrowserRouter([
   {
     path: "/signup",
     element: <Signup />,
+  },
+]);
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "/signin",
+        element: <Signin />,
+      },
+      {
+        path: "/signup",
+        element: <Signup />,
+      },
+    ],
   },
 ]);
 

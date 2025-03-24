@@ -1,5 +1,5 @@
-import { Vote } from '../models/vote.js';
-import { generateHttoError } from '../utils/httpError.js';
+import { Vote } from '../models/db.js';
+import { generateHttpError } from '../utils/common.js';
 
 export class VoteController {
     static async saveVote(ideaId, voteData, userId){
@@ -15,7 +15,7 @@ export class VoteController {
             newVote.userId = userId;
             return newVote.save();
         } else {
-            throw generateHttoError(400, "You have already voted for this idea");
+            throw generateHttpError(400, "You have already voted for this idea");
         }
     }
     static async findById(voteId){
@@ -32,7 +32,7 @@ export class VoteController {
             vote.voteType = updatedVote.voteType;
             return vote.save();
         } else {
-                throw generateHttoError(404, "Vote not found");
+                throw generateHttpError(404, "Vote not found");
             }
         }
 
@@ -47,7 +47,24 @@ export class VoteController {
         }
 
     static async getVotes(ideaId, type){
-        //da completare
+        let voteType;
+        if(type === "upvote"){
+            voteType = 1;
+        } else if(type === "downvote"){
+            voteType = -1;
+        } else {
+            voteType = 0;
+        }
+        let allVotes = await Vote.findAll({
+            where: {
+                ideaId: ideaId,
+                ...(voteType ? { voteType: voteType } : {}),
+            }
+        })
+        return {
+            votes: allVotes,
+            count: allVotes.length
+        }
     }
         
 

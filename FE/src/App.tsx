@@ -1,11 +1,11 @@
+import { Outlet } from "react-router-dom";
 import "./App.css";
-import Test from "./shared/components/Test";
 
 function App() {
   return (
-    <>
-      <Test />
-    </>
+    <main className="h-full">
+      <Outlet />
+    </main>
   );
 }
 

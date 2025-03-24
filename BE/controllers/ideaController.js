@@ -1,4 +1,4 @@
-
+import { Idea, Comment, Vote, User } from '../models/db.js';
 
 export class IdeaController {
     static async saveIdea(userId, idea) {

@@ -1,5 +1,7 @@
 import express from "express"
-import { IdeaController } from "../controllers/ideaController";
+import { IdeaController } from "../controllers/ideaController.js";
+import { ensureIdeaExists } from "../middleware/ensureIdeaExists.js";
+import { ensureUsersModifyOnlyOwnIdeas } from "../middleware/authorization.js";
 
 export const ideaRouter = new express.Router();
 
@@ -15,7 +17,7 @@ ideaRouter.get("/ideas", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-ideaRouter.get("/ideas/:id", ensureIdeaExists, (req, res, next) => {
+ideaRouter.get("/ideas/:id", ensureIdeaExists, ensureUsersModifyOnlyOwnIdeas, (req, res, next) => {
   console.log("userId", req.params.userId);
   IdeaController.findIdeaById(req.params.ideaId)
     .then((item)=>{
@@ -26,7 +28,7 @@ ideaRouter.get("/ideas/:id", ensureIdeaExists, (req, res, next) => {
       });
 });
 
-ideaRouter.delete("/ideas/:id". ensureIdeaExists, assertIdeaOwnership, (req, res, next) => {
+ideaRouter.delete("/ideas/:id", ensureIdeaExists, ensureUsersModifyOnlyOwnIdeas, (req, res, next) => {
   IdeaController.deleteIdea(req.params.ideaId)
     .then((item) => {
       res.json(item);

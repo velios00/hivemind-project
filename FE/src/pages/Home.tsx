@@ -1,7 +1,11 @@
+import Navbar from "../shared/components/Navbar";
+import IdeasContainer from "../shared/IdeasContainer";
+
 export default function Home() {
   return (
-    <div>
-      <h1>Home</h1>
-    </div>
+    <>
+      <Navbar />
+      <IdeasContainer />
+    </>
   );
 }

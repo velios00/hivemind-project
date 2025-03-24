@@ -1,5 +1,5 @@
 import express from "express";
-import { voteController } from "../controllers/voteController.js";
+import { VoteController } from "../controllers/voteController.js";
 
 export const voteRouter = express.Router();
 

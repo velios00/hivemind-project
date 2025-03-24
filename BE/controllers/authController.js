@@ -45,4 +45,26 @@ export class AuthController {
     static isTokenValid(token, callback) {
         Jwt.verify(token, process.env.TOKEN_SECRET, callback);
     }
+
+
+    static async canUserModifyIdea(userId, ideaId){
+        let idea = await Idea.findByPk(ideaId);
+        return idea.userId == userId;
+    }
+
+    static async canUserModifyVote(userId, voteId){
+        let vote = await Vote.findByPk(voteId);
+        return vote.userId == userId;
+    }
+
+    static async canUserModifyAvatar(userId){
+        let user = await User.findByPk(userId);
+        return user.id == userId
+    }
+
+    static async canUserModifyComment(userId, commentId){
+        let comment = await Comment.findByPk(commentId);
+        return comment.userId == userId
+    }
+
 }

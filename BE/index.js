@@ -4,7 +4,11 @@ import cors from "cors";
 import swaggerUI from "swagger-ui-express"
 import swaggerJSDoc from "swagger-jsdoc";
 import { authRouter } from "./routes/authRouter.js";
-
+import { enforceAuthentication } from "./middleware/authorization.js";
+import { voteRouter } from "./routes/voteRouter.js";
+import { ideaRouter } from "./routes/ideaRouter.js";
+import { commentRouter } from "./routes/commentRouter.js";
+import { userRouter } from "./routes/userRouter.js";
 
 const app = express();
 const PORT = 3000;
@@ -13,7 +17,7 @@ app.use(morgan("dev")) //middleware per logging
 app.use(cors());
 
 app.use(express.json());
-app.use(authRouter);
+
 
 //generate OpenAPI spec and show swagger ui
 // Initialize swagger-jsdoc -> returns validated swagger spec in json format
@@ -31,7 +35,12 @@ const swaggerSpec = swaggerJSDoc({
   app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerSpec));
 
 //routes
- app.use(authRouter)
+ app.use(authRouter);
+ app.use(enforceAuthentication);
+ app.use(ideaRouter);
+ app.use(voteRouter);
+ app.use(commentRouter);
+ app.use(userRouter);
 
 //error handler
 app.use( (err, req, res, next) => {

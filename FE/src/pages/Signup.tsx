@@ -1,7 +1,6 @@
 import {
   Avatar,
   Container,
-  Grid2 as Grid,
   Paper,
   Typography,
   Box,
@@ -11,7 +10,6 @@ import {
 import { useState, ChangeEvent, useCallback, FormEvent } from "react";
 import { AuthRequest } from "../shared/models/AuthRequest.model";
 import toast from "react-hot-toast";
-import { Link as RouterLink } from "react-router-dom";
 import { SignUpData } from "../shared/models/SignUpData.model";
 import { signUp } from "../services/AuthService";
 
